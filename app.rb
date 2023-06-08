@@ -1,5 +1,35 @@
 require "readline"
 
+#ループ処理
+loop do 
+
+#メニュー
+puts "StudyLogのメニュー"
+puts "・メモを書く は「 1 」と入力してください"
+puts "・メモを見る は「 2 」と入力してください"
+puts "・プログラムを終了するには「 3 」と入力してください。"
+input = Readline.readline("指示を「 1 」か「 2 」か「3」で入力してください:").to_i
+puts "入力したのは: #{input} です。"
+
+#ユーザーが3を入力したら、ループから抜けてプログラムを終了する
+#プログラムを終了する前に終了しますか？を表示する
+input == 3 if puts "プログラムを終了しました。また利用をお待ちしています。"
+break if input == 3
+
+#メニューを分岐させる処理
+if input == 1
+#ファイルに書き込む処理
+load './write.rb'
+elsif input == 2 
+#ファイルの中身を表示する処理
+load './read.rb'
+else
+puts "1か2を入力してください。"
+end
+end
+
+
+=begin
 #メニューを表示する
 puts "StudyLogのメニュー"
 puts "・メモを書く は「 1 」と入力してください"
@@ -22,7 +52,7 @@ elsif input == 2
 else
   puts "1か2を入力してください。"
 end
-
+=end
 
 =begin
 #業務一覧
