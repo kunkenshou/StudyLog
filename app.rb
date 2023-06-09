@@ -1,58 +1,44 @@
 require "readline"
 
-#ループ処理
+#ループ文開始
 loop do 
 
 #メニュー
-puts "StudyLogのメニュー"
-puts "・メモを書く は「 1 」と入力してください"
-puts "・メモを見る は「 2 」と入力してください"
-puts "・プログラムを終了するには「 3 」と入力してください。"
+puts "■■StudyLogのメニュー■■"
+puts "・【メモを書く】は「 1 」と入力してください"
+puts "・【メモを見る】は「 2 」と入力してください"
+puts "・【メモ一覧を見る】は「 5 」と入力してください"
+puts "・【※ プログラムを終了する】は「 3 」と入力してください。"
 input = Readline.readline("指示を「 1 」か「 2 」か「3」で入力してください:").to_i
 puts "入力したのは: #{input} です。"
 
 #ユーザーが3を入力したら、ループから抜けてプログラムを終了する
 #プログラムを終了する前に終了しますか？を表示する
-input == 3 if puts "プログラムを終了しました。また利用をお待ちしています。"
-break if input == 3
+#puts "プログラムを終了しました。また利用をお待ちしています。"
+
+answer = Readline.readline("本当に終了しますか(y/n) :") if input == 3 
+break if answer == 'y'
 
 #メニューを分岐させる処理
-if input == 1
+case
+when input == 1
 #ファイルに書き込む処理
-load './write.rb'
-elsif input == 2 
+  load './write.rb'
+when input == 2
 #ファイルの中身を表示する処理
-load './read.rb'
-else
-puts "1か2を入力してください。"
-end
-end
-
-
-=begin
-#メニューを表示する
-puts "StudyLogのメニュー"
-puts "・メモを書く は「 1 」と入力してください"
-puts "・メモを見る は「 2 」と入力してください"
-input = Readline.readline("指示を「 1 」か「 2 」で入力してください:").to_i
-puts "入力したのは: #{input} です。"
-
-#メニューを分岐させる処理
-if input == 1
-#ファイルに書き込む処理
-  puts "・メモを書いてください。"
-  content = Readline.readline("メモを入力してEnterを押すと保存されます :")
-  File.open("log.txt", "w", 0755) do |file| file.write(content)
-  end
-elsif input == 2 
-#ファイルの中身を表示する処理
-  puts "・メモをご覧ください。"
-  f = File.read("log.txt")
-  puts f
+  load './read.rb'
+when input == 5
+#メモの一覧を表示、logindex.rbを読み込む
+  load './logindex.rb'
+when answer == "n"
+  puts "メニューに戻ります"
 else
   puts "1か2を入力してください。"
 end
-=end
+
+#ループ文終了
+end
+
 
 =begin
 #業務一覧
@@ -75,14 +61,37 @@ end
 2.メニューに戻る
 
 
-状況
+機能追加
+メモのファイルを削除する
+1.ユーザーからメモを削除する入力値を受け取る
+2.メモを削除
+3.メモを削除したらメニューに戻る
+
+メモを作成する
+1.ユーザーからメモを作成する入力値を受け取る
+2.作成する
+3.メモを作成したらメニューに戻る
+
+メモ一覧を見る
+1.ディレクトリのファイル一覧を取得する
+2.ファイル一覧を表示する
+3.メニューに戻る
+
+
+#状況
 できたこと
 ・ユーザーからの入力値を受け取る
 ・ファイルを開いて入力値を書き込む
 ・ファイルの内容をターミナルへ表示
 
-
 #備考
+
+考慮漏れ
+1.メモの書き込み、閲覧の後の処理に抜け
+→メニューに戻る等々の処理が必要
+
+2.メニューからプログラムを終了する定義がなかった。
+
 ・標準入力
 →行の読み取り
 hoge = readline
