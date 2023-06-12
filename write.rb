@@ -25,7 +25,11 @@ puts "メモを書いて下さい。"
 file_content = Readline.readline("メモを入力してください。Enterを押すと保存されます。 :")
 File.open(file_path, "w", 0755) do |file| file.write(file_content)
 end
-
+when write_input == 2
+  file_delete = Readline.readline("削除したいファイル名を入力してください")
+file_path = File.join(dir_path, file_delete)
+File.delete(file_path)
+puts "#{file_delete}を削除しました" if File.delete == 1
 end
 =begin
 #ファイルに書き込む処理
