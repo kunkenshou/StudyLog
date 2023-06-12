@@ -4,11 +4,10 @@ require "readline"
 loop do 
 
 #メニュー
-puts "■■StudyLogのメニュー■■"
-puts "・【メモを書く】は「 1 」と入力してください"
-puts "・【メモを見る】は「 2 」と入力してください"
-puts "・【メモ一覧を見る】は「 5 」と入力してください"
-puts "・【※ プログラムを終了する】は「 3 」と入力してください。"
+puts "■ ■ ■ ■ ■ StudyLogのメニュー ■ ■ ■ ■ ■"
+puts "・【メモを作る・メモを消す】は「 1 」を入力してください"
+puts "・【メモを見る】は「 2 」を入力してください"
+puts "・【※ プログラムを終了する】は「 3 」を入力してください。"
 input = Readline.readline("指示を「 1 」か「 2 」か「3」で入力してください:").to_i
 puts "入力したのは: #{input} です。"
 
@@ -16,6 +15,7 @@ puts "入力したのは: #{input} です。"
 #プログラムを終了する前に終了しますか？を表示する
 #puts "プログラムを終了しました。また利用をお待ちしています。"
 
+#プログラムを終了を処理
 answer = Readline.readline("本当に終了しますか(y/n) :") if input == 3 
 break if answer == 'y'
 
@@ -27,12 +27,11 @@ when input == 1
 when input == 2
 #ファイルの中身を表示する処理
   load './read.rb'
-when input == 5
-#メモの一覧を表示、logindex.rbを読み込む
-  load './logindex.rb'
 when answer == "n"
+  #プログラム終了をキャンセルする
   puts "メニューに戻ります"
 else
+  #メニュー項目にない処理が行われた時に表示するメッセージ
   puts "1か2を入力してください。"
 end
 
