@@ -12,7 +12,6 @@ index_input = Readline.readline("メニューを入力してください :").to_
 dir_path = './log'
 
 #メニューに戻る・プログラムを終了する処理
-#メニューに戻る・プログラムを終了する処理
 puts "メニューに戻ります" if index_input == 3
 break if index_input == 3
 load "app.rb" if index_input == 3
