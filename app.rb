@@ -5,28 +5,57 @@ loop do
 
 #メニュー
 puts "■ ■ ■ ■ ■ StudyLogのメニュー ■ ■ ■ ■ ■"
-puts "・【メモを作る・メモを消す】は「 1 」を入力してください"
-puts "・【メモを見る】は「 2 」を入力してください"
-puts "・【※ プログラムを終了する】は「 3 」を入力してください。"
-input = Readline.readline("指示を「 1 」か「 2 」か「3」で入力してください:").to_i
+puts "・【メモを作る】は「 1 」を入力してください"
+puts "・【メモを削除する】は「 2 」を入力してください"
+puts "・【メモを見る】は「 3 」を入力してください"
+puts "・【※ プログラムを終了する】は「 4 」を入力してください。"
+
+input = Readline.readline("指示を「 1 」か「 2 」か「3」か「 4 」で入力してください:").to_i
 puts "入力したのは: #{input} です。"
 
-#ユーザーが3を入力したら、ループから抜けてプログラムを終了する
-#プログラムを終了する前に終了しますか？を表示する
-#puts "プログラムを終了しました。また利用をお待ちしています。"
-
 #プログラムを終了を処理
-answer = Readline.readline("本当に終了しますか(y/n) :") if input == 3 
+answer = Readline.readline("本当に終了しますか(y/n) :") if input == 4 
 break if answer == 'y'
+
+#メモの保存先のディレクトリを指定
+dir_path = './log'
 
 #メニューを分岐させる処理
 case
 when input == 1
-#ファイルに書き込む処理
-  load './write.rb'
+  #メモを作成する処理
+  file_name = Readline.readline("メモのタイトルを入力してください。＞ :")
+  file_path = File.join(dir_path, file_name + '.txt')
+  file_create = File.new(file_path, "w")
+  puts "メモを書いて下さい。"
+  file_content = Readline.readline("メモを入力してください。Enterを押すと保存されます。＞ :")
+  File.open(file_path, "w", 0755) do |file| file.write(file_content)
+  end
+
 when input == 2
-#ファイルの中身を表示する処理
-  load './read.rb'
+  file_dir = Dir.entries(dir_path)
+  file_dir.each do |file| 
+    puts file
+  end
+  file_delete = Readline.readline("削除したいファイル名を入力してください。＞ :")
+  file_path = File.join(dir_path, file_delete)
+  File.delete(file_path)
+  puts "#{file_delete}を削除しました。" if File.delete == 0
+
+#メモの内容を表示する処理
+when input == 3
+  puts "メモのタイトル一覧"
+  logindex = Dir.entries(dir_path)
+  
+  logindex.each do |entry| 
+  puts entry
+  end
+  
+  file_name = Readline.readline("メモのタイトルを入力してください。＞ :")
+  file_path = File.join(dir_path, file_name)
+  file = File.read(file_path)
+  puts file
+
 when answer == "n"
   #プログラム終了をキャンセルする
   puts "メニューに戻ります"
@@ -37,86 +66,3 @@ end
 
 #ループ文終了
 end
-
-
-=begin
-#業務一覧
-メニューを表示する
-・処理を分岐する
-1.メモを書く
-2.メモを見る
-・業務課題
-1.メニューでユーザーからの指示を促すメッセージをプロンプト上に表示したい
-関数の処理の組み立て方がわからない。
-
-
-
-・メモを書くの処理
-1.入力値を受け取る
-保存する
-2.メニューに戻るを表示する
-・メモを見る
-1.メモを表示
-2.メニューに戻る
-
-
-機能追加
-メモのファイルを削除する
-1.ユーザーからメモを削除する入力値を受け取る
-2.メモを削除
-3.メモを削除したらメニューに戻る
-
-メモを作成する
-1.ユーザーからメモを作成する入力値を受け取る
-2.作成する
-3.メモを作成したらメニューに戻る
-
-メモ一覧を見る
-1.ディレクトリのファイル一覧を取得する
-2.ファイル一覧を表示する
-3.メニューに戻る
-
-
-#状況
-できたこと
-・ユーザーからの入力値を受け取る
-・ファイルを開いて入力値を書き込む
-・ファイルの内容をターミナルへ表示
-
-#備考
-
-考慮漏れ
-1.メモの書き込み、閲覧の後の処理に抜け
-→メニューに戻る等々の処理が必要
-
-2.メニューからプログラムを終了する定義がなかった。
-
-・標準入力
-→行の読み取り
-hoge = readline
-puts (hoge)
-
-→ファイルの中身を読み取り
-f = File.read('log.txt')
-
-puts f
-
-書き込みの処理
-Fileクラスのdocs
-https://docs.ruby-lang.org/ja/2.7.0/class/File.html#S_WRITABLE--3F
-
-openメソッドのdocs
-https://docs.ruby-lang.org/ja/2.7.0/class/File.html#S_NEW
-
-ブロック付きのメソッドの呼び出し
-https://docs.ruby-lang.org/ja/2.7.0/doc/spec=2fcall.html
-※ブロック付きのメソッドの理解がしっくり来ない。
-
-実装できなかった処理
-#プロンプトでユーザーに入力を促す関数
-def prompt(message = "指示を「 1 」か「 2 」で入力してください:")
-  puts message
-end
-
-
-=end
