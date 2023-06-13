@@ -20,11 +20,8 @@ load "app.rb" if write_input == 4
 #メニューの処理
 case
 when write_input == 1
-<<<<<<< HEAD
-file_name = Readline.readline("ファイル名を入力してください :"
   #メモを作成する処理
 file_name = Readline.readline("メモのタイトルを入力してください :")
->>>>>>> 642f1c827951d5ce87a8742f7f9f877ba0f71f7c
 file_path = File.join(dir_path, file_name + '.txt')
 file_create = File.new(file_path, "w")
 puts "メモを書いて下さい。"
