@@ -98,7 +98,7 @@ https://ruby-doc.org/2.7.8/index.html
 https://chat.openai.com/  
   
 ## 今後の予定
-機能追加  
+**機能追加**  
 ・例外処理  
 ・メモの内容の変更  
   
