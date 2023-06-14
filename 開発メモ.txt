@@ -8,6 +8,38 @@ readlinメソッド
 
 ・入力内容を.txtファイルとして保存
 
-
 ・テキストファイルからファイルを呼び出し
 
+
+考慮漏れ
+1.メモの書き込み、閲覧の後の処理に抜け
+→メニューに戻る等々の処理が必要
+
+2.メニューからプログラムを終了する定義がなかった。
+
+・標準入力
+→行の読み取り
+hoge = readline
+puts (hoge)
+
+→ファイルの中身を読み取り
+f = File.read('log.txt')
+
+puts f
+
+書き込みの処理
+Fileクラスのdocs
+https://docs.ruby-lang.org/ja/2.7.0/class/File.html#S_WRITABLE--3F
+
+openメソッドのdocs
+https://docs.ruby-lang.org/ja/2.7.0/class/File.html#S_NEW
+
+ブロック付きのメソッドの呼び出し
+https://docs.ruby-lang.org/ja/2.7.0/doc/spec=2fcall.html
+※ブロック付きのメソッドの理解がしっくり来ない。
+
+実装できなかった処理
+#プロンプトでユーザーに入力を促す関数
+def prompt(message = "指示を「 1 」か「 2 」で入力してください:")
+  puts message
+end
