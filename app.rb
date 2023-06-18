@@ -1,7 +1,10 @@
 require "readline"
 
 #ループ文開始
+#例外処理
+begin
 loop do 
+
 
 #メニュー
 puts "■ ■ ■ ■ ■ StudyLogのメニュー ■ ■ ■ ■ ■"
@@ -64,5 +67,12 @@ else
   puts "1か2を入力してください。"
 end
 
+# readlineメソッドの例外処理
+rescue Errno::ENOENT
+puts "例外が発生しました。"
+
 #ループ文終了
+end
+
+#例外の終了
 end
