@@ -82,11 +82,25 @@ when input == 3
   loop do
   #メモのタイトルを標準入力で受け取る
   file_name = Readline.readline("メモのタイトルを入力してください。＞ :")
+  
+  file_name_status = file_name.match?("")
+  
   #file_dirの配列から標準入力されたタイトルを比較、真偽値を格納
   file_status = file_dir.include?(file_name)
 
-  #真偽値で処理を分岐、tureなら標準入力で受け取ったタイトルのメモの内容を表示する、falseならメモを見るの処理に戻る
+
+def inputcheck(file_status, file_name_status)
   if file_status == true
+    return true
+  elsif file_name_status == false
+    return false
+  end
+end
+
+check = inputcheck(file_status, file_name_status)
+
+  #真偽値で処理を分岐、tureなら標準入力で受け取ったタイトルのメモの内容を表示する、falseならメモを見るの処理に戻る
+  if check == true
   file_path = File.join(dir_path, file_name)
   file = File.read(file_path)
   puts file
@@ -95,7 +109,7 @@ when input == 3
   end
   
   #file_status配列とfile_nameを比較して戻り値がtureならメモを見るの処理の繰り返しを終了
-  break if file_status == true
+  break if check == true
   #メモを表示するのループ終了
 end
 
