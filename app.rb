@@ -23,7 +23,7 @@ break if answer == 'y'
 #メモの保存先のディレクトリを指定
 dir_path = './log'
 
-#標準入力で受け取った値に例外が発生させない様に記号を変数に代入
+#標準入力で受け取った値に例外が発生させない様にに記号を変数に代入
 pattern = /[%,.+]/
 
 #メニューを分岐させる処理
@@ -76,6 +76,9 @@ when input == 3
   #メモの保存ディレクトリを配列化
   file_dir = Dir.entries(dir_path)
   
+  #
+  file_dir = file_dir.drop(2)
+  
   #メモの保存ディレクトリを標準出力
   file_dir.each do |entry| 
   puts entry
@@ -87,22 +90,22 @@ when input == 3
   file_name = Readline.readline("メモのタイトルを入力してください。＞ :")
   
   #file_nameを正規表現でマッチング、変数に真偽値を格納
-  normalized_filename = file_name.match?(pattern)
+  normalized_input = file_name.match?(pattern)
   
   #file_dirの配列から標準入力されたタイトルを比較、変数に真偽値を格納
   value_exists = file_dir.include?(file_name)
 
 #関数処理、引数の型によって別て戻り値に真偽値を返す
-def normalized(value_exists, normalized_filename)
+def normalized(value_exists, normalized_input)
   if value_exists == true
     return true
-  elsif normalized_filename == false
+  elsif normalized_input == false
     return false
   end
 end
 
 #関数の戻り値が変数に代入
-normalized_input = normalized(value_exists, normalized_filename)
+normalized_input = normalized(value_exists, normalized_input)
 
   #真偽値で処理を分岐、tureなら標準入力で受け取ったタイトルのメモの内容を表示する、falseならメモを見るの処理に戻る
   if normalized_input == true
