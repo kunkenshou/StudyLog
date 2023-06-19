@@ -47,29 +47,23 @@ when input == 2
 
 #メモの内容を表示する処理
 when input == 3
-
-  
   puts "メモのタイトル一覧"
+  #メモの保存ディレクトリを配列化
   logindex = Dir.entries(dir_path)
   
+  #メモの保存ディレクトリを標準出力
   logindex.each do |entry| 
   puts entry
   end
   
-
-  #logindex(Array)とfile_name(String)あるか比較する
-  #配列の長さまで、変数の値と配列にある値を比較する。
-  #include?メソッドを使う
-  #比較の処理が終わったら、戻り値として真偽値を返す。
-  #logindexの配列の中身にfile_nameと同じ値だったらメモの内容を表示する。
-  #logindexの配列の中身にfile_nameが違う場合は同じ値が入力されるまで、メモのタイトルを標準入力で受け取る処理を繰り返す。
-  #ディレクトリに存在するファイル一覧と標準入力で受け取ったメモのタイトルが同じだったら繰り返しの処理を抜けてて、メモの中身を表示する
-
+  #メモのタイトルがディレクトリに存在するタイトルが入力されたら戻り値をtureを返してる繰り返しの処理を抜ける
   loop do
+  #メモのタイトルを標準入力で受け取る
   file_name = Readline.readline("メモのタイトルを入力してください。＞ :")
-  #
+  #logindexの配列から標準入力されたタイトルを比較、真偽値を格納
   file_status = logindex.include?(file_name)
 
+  #真偽値で処理を分岐、tureなら標準入力で受け取ったタイトルのメモの内容を表示する、falseならメモを見るの処理に戻る
   if file_status == true
   file_path = File.join(dir_path, file_name)
   file = File.read(file_path)
@@ -78,6 +72,7 @@ when input == 3
     puts "ファイル名が存在しません。もう一度入力してください。"
   end
   
+  #file_status配列とfile_nameを比較して戻り値がtureならメモを見るの処理の繰り返しを終了
   break if file_status == true
   #メモを表示するのループ終了
 end
