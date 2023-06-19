@@ -2,7 +2,7 @@ require "readline"
 
 #ループ文開始
 #例外処理
-begin
+#begin
 loop do 
 
 
@@ -47,6 +47,8 @@ when input == 2
 
 #メモの内容を表示する処理
 when input == 3
+
+  
   puts "メモのタイトル一覧"
   logindex = Dir.entries(dir_path)
   
@@ -54,11 +56,31 @@ when input == 3
   puts entry
   end
   
+
+  #logindex(Array)とfile_name(String)あるか比較する
+  #配列の長さまで、変数の値と配列にある値を比較する。
+  #include?メソッドを使う
+  #比較の処理が終わったら、戻り値として真偽値を返す。
+  #logindexの配列の中身にfile_nameと同じ値だったらメモの内容を表示する。
+  #logindexの配列の中身にfile_nameが違う場合は同じ値が入力されるまで、メモのタイトルを標準入力で受け取る処理を繰り返す。
+  #ディレクトリに存在するファイル一覧と標準入力で受け取ったメモのタイトルが同じだったら繰り返しの処理を抜けてて、メモの中身を表示する
+
+  loop do
   file_name = Readline.readline("メモのタイトルを入力してください。＞ :")
+  #
+  file_status = logindex.include?(file_name)
+
+  if file_status == true
   file_path = File.join(dir_path, file_name)
   file = File.read(file_path)
   puts file
-
+  else
+    puts "ファイル名が存在しません。もう一度入力してください。"
+  end
+  
+  break if file_status == true
+  #メモを表示するのループ終了
+end
 when answer == "n"
   #プログラム終了をキャンセルする
   puts "メニューに戻ります"
@@ -68,11 +90,13 @@ else
 end
 
 # readlineメソッドの例外処理
-rescue Errno::ENOENT
-puts "例外が発生しました。"
+#rescue Errno::ENOENT
+#puts "例外が発生しました。"
 
 #ループ文終了
 end
 
+
+
 #例外の終了
-end
+#end
