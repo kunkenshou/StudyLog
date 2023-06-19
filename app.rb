@@ -25,8 +25,8 @@ dir_path = './log'
 
 #メニューを分岐させる処理
 case
+#メモを作成する処理
 when input == 1
-  #メモを作成する処理
   file_name = Readline.readline("メモのタイトルを入力してください。＞ :")
   file_path = File.join(dir_path, file_name + '.txt')
   file_create = File.new(file_path, "w")
@@ -34,25 +34,47 @@ when input == 1
   file_content = Readline.readline("メモを入力してください。Enterを押すと保存されます。＞ :")
   File.open(file_path, "w", 0755) do |file| file.write(file_content)
   end
-
+  
+#メモを削除する処理
 when input == 2
+  puts "メモのタイトル一覧"
+  #メモの保存ディレクトリを配列化
   file_dir = Dir.entries(dir_path)
+  
+   #メモの保存ディレクトリを標準出力
   file_dir.each do |file| 
     puts file
   end
-  file_delete = Readline.readline("削除したいファイル名を入力してください。＞ :")
-  file_path = File.join(dir_path, file_delete)
+  
+  #メモのタイトルがディレクトリに存在するタイトルが入力されたら戻り値をtureを返してる繰り返しの処理を抜ける
+  loop do
+  #メモのタイトルを標準入力で受け取る
+  file_name = Readline.readline("削除したいファイル名を入力してください。＞ :")
+  #file_dirの配列から標準入力されたタイトルを比較、真偽値を格納
+  file_status = file_dir.include?(file_name)
+  
+  #真偽値で処理を分岐、tureなら標準入力で受け取ったタイトルのメモの内容を表示する、falseならメモを見るの処理に戻る
+  if file_status == true
+  file_path = File.join(dir_path, file_name)
   File.delete(file_path)
-  puts "#{file_delete}を削除しました。" if File.delete == 0
-
+  puts "#{file_name}を削除しました。" if File.delete == 0
+  else
+    puts "ファイル名が存在しません。もう一度入力してください。"
+  end
+  
+  #file_status配列とfile_nameを比較して戻り値がtureならメモを見るの処理の繰り返しを終了
+  break if file_status == true
+  #メモを表示するのループ終了
+  
+end
 #メモの内容を表示する処理
 when input == 3
   puts "メモのタイトル一覧"
   #メモの保存ディレクトリを配列化
-  logindex = Dir.entries(dir_path)
+  file_dir = Dir.entries(dir_path)
   
   #メモの保存ディレクトリを標準出力
-  logindex.each do |entry| 
+  file_dir.each do |entry| 
   puts entry
   end
   
@@ -60,8 +82,8 @@ when input == 3
   loop do
   #メモのタイトルを標準入力で受け取る
   file_name = Readline.readline("メモのタイトルを入力してください。＞ :")
-  #logindexの配列から標準入力されたタイトルを比較、真偽値を格納
-  file_status = logindex.include?(file_name)
+  #file_dirの配列から標準入力されたタイトルを比較、真偽値を格納
+  file_status = file_dir.include?(file_name)
 
   #真偽値で処理を分岐、tureなら標準入力で受け取ったタイトルのメモの内容を表示する、falseならメモを見るの処理に戻る
   if file_status == true
@@ -76,6 +98,7 @@ when input == 3
   break if file_status == true
   #メモを表示するのループ終了
 end
+
 when answer == "n"
   #プログラム終了をキャンセルする
   puts "メニューに戻ります"
