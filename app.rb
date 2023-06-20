@@ -24,7 +24,7 @@ break if answer == 'y'
 dir_path = './log'
 
 #標準入力で受け取った値に例外が発生させない様にに記号を変数に代入
-pattern = /[%,.+]/
+pattern = /[%.+\/]/
 
 #メニューを分岐させる処理
 case
@@ -43,27 +43,31 @@ loop do
 #入力で値を受け取る
   file_name = Readline.readline("メモのタイトルを入力してください。＞ :")
 
+  #file_nameを正規表現でマッチング、変数に真偽値を格納
+  normalized_input = file_name.match?(pattern)
+
   file_name = file_name + ".txt"
 
-  #file_nameを正規表現でマッチング、変数に真偽値を格納
-#  normalized_input = file_name.match?(pattern)
-  
   #file_dirの配列から標準入力されたタイトルを比較、変数に真偽値を格納
-  value_exists = file_dir.include?(file_name)
-
+ value_exists = file_dir.include?(file_name)
 
 #関数処理、引数の型によって別て戻り値に真偽値を返す
-#def normalized(value_exists)
-#  if value_exists == true
-#    return ture
-#  end
-#end
+def normalized(value_exists, normalized_input)
+  case
+  when value_exists == true || normalized_input == true
+    return true
+  when value_exists == false || normalized_input == true
+    return false
+  when value_exists == false || normalized_input == false
+    return false
+  end
+end
 
   #関数の戻り値が変数に代入
-#  normalized_input = normalized(value_exists)
+  normalized_input = normalized(value_exists, normalized_input)
 
   #真偽値で処理を分岐、tureなら標準入力で受け取ったタイトルのメモの内容を表示する、falseならメモを見るの処理に戻る
-  if value_exists == false
+  if normalized_input == false
   file_path = File.join(dir_path, file_name)
   file_create = File.new(file_path, "w")
   puts "メモを書いて下さい。"
@@ -75,7 +79,7 @@ else
 end
 
   #file_status配列とfile_nameを比較して戻り値がtureならメモを見るの処理の繰り返しを終了
-  break if value_exists == false
+  break if normalized_input == false
 #繰り返しの処理終了
 end
 
