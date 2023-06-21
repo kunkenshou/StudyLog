@@ -19,26 +19,29 @@ pattern = /[%.+\/\p{Space}]/
 #string型で標準入力
 input = Readline.readline("指示を「 1 」か「 2 」か「3」か「 4 」で入力してください:").to_s
 
+#標準入力値にpattern変数にある値と一致したらtrue、それ以外は入力値をstringで戻り値が返ってくる
 def normalized(input, pattern)
   if input.match?(pattern) == true
     return true
   else
-    return normalized_input = input
+    return menu_number = input
   end
 end
 
-hoge = normalized(input, pattern)
-
-
-case 
-when hoge == true
-puts "#{input} はメニューにありません。入力しなおしてください"
-end
+#関数値、期待値でない場合はBoolean型、期待値ならString型
+menu_number = normalized(input, pattern)
 
 puts "入力したのは: #{input} です。"
 
+case 
+when menu_number == true
+puts "#{input} はメニューにありません。入力しなおしてください"
+end
+
+
+
 #プログラムを終了を処理
-answer = Readline.readline("本当に終了しますか(y/n) :") if input == "4" 
+answer = Readline.readline("本当に終了しますか(y/n) :") if menu_number == "4" 
 break if answer == 'y'
 
 
@@ -49,7 +52,7 @@ dir_path = './log'
 #メニューを分岐させる処理
 case
 #メモを作成する処理
-when input == "1"
+when menu_number == "1"
 
 #入力で受け取った値を評価して結果がtureになるまで処理を繰り返す
 loop do
@@ -104,7 +107,7 @@ end
 end
 
 #メモを削除する処理
-when input == "2"
+when menu_number == "2"
   puts "メモのタイトル一覧"
 
   #メモの保存ディレクトリを配列化
@@ -156,7 +159,7 @@ if normalized_input == true
 end
 
 #メモの内容を表示する処理
-when input == "3"
+when menu_number == "3"
   puts "メモのタイトル一覧"
   #メモの保存ディレクトリを配列化
   file_dir = Dir.entries(dir_path)
