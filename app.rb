@@ -13,23 +13,51 @@ puts "・【メモを削除する】は「 2 」を入力してください"
 puts "・【メモを見る】は「 3 」を入力してください"
 puts "・【※ プログラムを終了する】は「 4 」を入力してください。"
 
-input = Readline.readline("指示を「 1 」か「 2 」か「3」か「 4 」で入力してください:").to_i
+#標準入力で受け取った値に例外が発生させない様にに正規表現でを変数に代入
+pattern = /[%.+\/\p{Space}]/
+
+#string型で標準入力
+input = Readline.readline("指示を「 1 」か「 2 」か「3」か「 4 」で入力してください:").to_s
+
+#input = Integer.sqrt(input)
+
+=begin
+normalized_input = true if input.match?(pattern) == true
+normalized_input = input if input.match?(pattern) == false
+=end
+
+
+def normalized(input, pattern)
+  if input.match?(pattern) == true
+    return true
+  else
+    return normalized_input = input
+  end
+end
+
+hoge = normalized(input, pattern)
+
+
+case 
+when hoge == true
+puts "#{input} はメニューにありません。入力しなおしてください"
+end
+
 puts "入力したのは: #{input} です。"
 
 #プログラムを終了を処理
-answer = Readline.readline("本当に終了しますか(y/n) :") if input == 4 
+answer = Readline.readline("本当に終了しますか(y/n) :") if input == "4" 
 break if answer == 'y'
+
 
 #メモの保存先のディレクトリを指定
 dir_path = './log'
 
-#標準入力で受け取った値に例外が発生させない様にに記号を変数に代入
-pattern = /[%.+\/]/
 
 #メニューを分岐させる処理
 case
 #メモを作成する処理
-when input == 1
+when input == "1"
 
 #入力で受け取った値を評価して結果がtureになるまで処理を繰り返す
 loop do
@@ -84,7 +112,7 @@ end
 end
 
 #メモを削除する処理
-when input == 2
+when input == "2"
   puts "メモのタイトル一覧"
   #メモの保存ディレクトリを配列化
   file_dir = Dir.entries(dir_path)
@@ -116,7 +144,7 @@ when input == 2
   
 end
 #メモの内容を表示する処理
-when input == 3
+when input == "3"
   puts "メモのタイトル一覧"
   #メモの保存ディレクトリを配列化
   file_dir = Dir.entries(dir_path)
@@ -169,10 +197,8 @@ end
 when answer == "n"
   #プログラム終了をキャンセルする
   puts "メニューに戻ります"
-else
-  #メニュー項目にない処理が行われた時に表示するメッセージ
-  puts "1か2を入力してください。"
 end
+#end
 
 # readlineメソッドの例外処理
 #rescue Errno::ENOENT
