@@ -1,11 +1,13 @@
 require "readline"
+require "./normalized.rb"
 
 #path、配列の共通で利用しているコードを別ファイルに切り出し
 load "./path.rb"
-#ループ文開始
+
 #例外処理
 #begin
 
+#ループ文開始
 loop do 
 
 
@@ -16,46 +18,31 @@ puts "・【メモを削除する】は「 2 」を入力してください"
 puts "・【メモを見る】は「 3 」を入力してください"
 puts "・【※ プログラムを終了する】は「 4 」を入力してください。"
 
+
 #string型で標準入力
-input = Readline.readline("指示を「 1 」か「 2 」か「3」か「 4 」で入力してください:").to_s
+$input = Readline.readline("指示を「 1 」か「 2 」か「3」か「 4 」で入力してください:").to_s
 
 #標準入力値の文字数をカウント
-input_length = input.length
+$input_length = $input.length
+
+#入力値チェックの関数をNormalizedClassへ移動
+#NormalizedClassインスタンスを生成、normalized_objへ代入
+normalized_obj = NormalizedClass.new
+#normalized_objオブジェクトのnormalizedメソッドの返り値を変数へ代入
+menu_number = normalized_obj.normalized($input, $pattern, $input_length, $menu_array)
 
 
-
-#標準入力で入力内容に記号が含まれていないか、文字列が1以上ないか確認する関数。戻り値は期待値以外はtrue、期待値はstring
-def normalized(input, pattern, input_length, menu_array)
-  case
-  when input.match?($pattern) == true #menuに記号がないか比較して評価する
-    return true
-  when (input_length == 1) == false #menuの入力値長さが1文字以上か比較して評価する
-    return true
-  when $menu_array.include?(input) == false #menuにない数値が入力された比較して評価する
-    return true
-  else
-    return menu_number = input #menuの数が入力されたら、変数に代入する
-  end
-end
-
-#関数値、期待値でない場合はBoolean型、期待値ならString型
-menu_number = normalized(input, $pattern, input_length, $menu_array)
-
-puts "入力したのは: #{input} です。"
+puts "入力したのは: #{$input} です。"
 
 case 
 when menu_number == true
-puts "#{input} はメニューにありません。入力しなおしてください"
+puts "#{$input} はメニューにありません。入力しなおしてください"
 end
 
 
 #プログラムを終了を処理
 answer = Readline.readline("本当に終了しますか(y/n) :") if menu_number == "4" 
 break if answer == 'y'
-
-
-#メモの保存先のディレクトリを指定
-dir_path = './log'
 
 
 #メニューを分岐させる処理
@@ -67,7 +54,7 @@ when menu_number == "1"
 loop do
 
     #メモの保存ディレクトリを配列化
-    file_dir = Dir.entries(dir_path)
+    file_dir = Dir.entries($dir_path)
   
     #dropメソッドで不要な要素を取り除いて配列を生成
     file_dir = file_dir.drop(2)
@@ -76,7 +63,7 @@ loop do
   file_name = Readline.readline("メモのタイトルを入力してください。＞ :")
 
   #file_nameを正規表現でマッチング、変数に真偽値を格納
-  normalized_input = file_name.match?(pattern)
+  normalized_input = file_name.match?($pattern)
 
   file_name = file_name + ".txt"
 
@@ -100,7 +87,7 @@ end
 
   #真偽値で処理を分岐、tureなら標準入力で受け取ったタイトルのメモの内容を表示する、falseならメモを見るの処理に戻る
   if normalized_input == false
-  file_path = File.join(dir_path, file_name)
+  file_path = File.join($dir_path, file_name)
   file_create = File.new(file_path, "w")
   puts "メモを書いて下さい。"
   file_content = Readline.readline("メモを入力してください。Enterを押すと保存されます。＞ :")
@@ -120,7 +107,7 @@ when menu_number == "2"
   puts "メモのタイトル一覧"
 
   #メモの保存ディレクトリを配列化
-  file_dir = Dir.entries(dir_path)
+  file_dir = Dir.entries($dir_path)
   
   #不要な要素を取り除いて、配列を再生成
   file_dir = file_dir.drop(2)
@@ -136,7 +123,7 @@ when menu_number == "2"
   file_name = Readline.readline("削除したいファイル名を入力してください。＞ :")
 
 #file_nameを正規表現でマッチング、変数に真偽値を格納
-normalized_input = file_name.match?(pattern)
+normalized_input = file_name.match?($pattern)
     
 #file_dirの配列から標準入力されたタイトルを比較、変数に真偽値を格納
 value_exists = file_dir.include?(file_name)
@@ -155,7 +142,7 @@ normalized_input = normalized(value_exists, normalized_input)
 
 #真偽値で処理を分岐、tureなら標準入力で受け取ったタイトルのメモの内容を表示する、falseならメモを見るの処理に戻る
 if normalized_input == true
-  file_path = File.join(dir_path, file_name)
+  file_path = File.join($dir_path, file_name)
   File.delete(file_path)
   puts "#{file_name}を削除しました。" if File.delete == 0
   else
@@ -171,7 +158,7 @@ end
 when menu_number == "3"
   puts "メモのタイトル一覧"
   #メモの保存ディレクトリを配列化
-  file_dir = Dir.entries(dir_path)
+  file_dir = Dir.entries($dir_path)
   
   #不要な要素を取り除いて、配列を再生成
   file_dir = file_dir.drop(2)
@@ -187,7 +174,7 @@ when menu_number == "3"
   file_name = Readline.readline("メモのタイトルを入力してください。＞ :")
   
   #file_nameを正規表現でマッチング、変数に真偽値を格納
-  normalized_input = file_name.match?(pattern)
+  normalized_input = file_name.match?($pattern)
   
   #file_dirの配列から標準入力されたタイトルを比較、変数に真偽値を格納
   value_exists = file_dir.include?(file_name)
@@ -206,7 +193,7 @@ normalized_input = normalized(value_exists, normalized_input)
 
   #真偽値で処理を分岐、tureなら標準入力で受け取ったタイトルのメモの内容を表示する、falseならメモを見るの処理に戻る
   if normalized_input == true
-  file_path = File.join(dir_path, file_name)
+  file_path = File.join($dir_path, file_name)
   file = File.read(file_path)
   puts file
   else
@@ -235,4 +222,5 @@ end
 
 #例外の終了
 #end
+
 
