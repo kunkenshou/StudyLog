@@ -30,6 +30,7 @@ def normalized(value_exists, normalized_input)
   end
 end
 
+
 #関数の戻り値が変数に代入
 normalized_input = normalized(value_exists, normalized_input)
 
