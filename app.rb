@@ -1,6 +1,5 @@
 require "readline"
 require "./normalized.rb"
-require "./menu.rb"
 
 #path、配列の共通で利用しているコードを別ファイルに切り出し
 load "./path.rb"
