@@ -1,8 +1,11 @@
 require "readline"
 
+#path、配列の共通で利用しているコードを別ファイルに切り出し
+load "./path.rb"
 #ループ文開始
 #例外処理
 #begin
+
 loop do 
 
 
@@ -13,23 +16,30 @@ puts "・【メモを削除する】は「 2 」を入力してください"
 puts "・【メモを見る】は「 3 」を入力してください"
 puts "・【※ プログラムを終了する】は「 4 」を入力してください。"
 
-#標準入力で受け取った値に例外が発生させない様にに正規表現でを変数に代入
-pattern = /[%.+\/\p{Space}]/
-
 #string型で標準入力
 input = Readline.readline("指示を「 1 」か「 2 」か「3」か「 4 」で入力してください:").to_s
 
-#標準入力値にpattern変数にある値と一致したらtrue、それ以外は入力値をstringで戻り値が返ってくる
-def normalized(input, pattern)
-  if input.match?(pattern) == true
+#標準入力値の文字数をカウント
+input_length = input.length
+
+
+
+#標準入力で入力内容に記号が含まれていないか、文字列が1以上ないか確認する関数。戻り値は期待値以外はtrue、期待値はstring
+def normalized(input, pattern, input_length, menu_array)
+  case
+  when input.match?($pattern) == true #menuに記号がないか比較して評価する
+    return true
+  when (input_length == 1) == false #menuの入力値長さが1文字以上か比較して評価する
+    return true
+  when $menu_array.include?(input) == false #menuにない数値が入力された比較して評価する
     return true
   else
-    return menu_number = input
+    return menu_number = input #menuの数が入力されたら、変数に代入する
   end
 end
 
 #関数値、期待値でない場合はBoolean型、期待値ならString型
-menu_number = normalized(input, pattern)
+menu_number = normalized(input, $pattern, input_length, $menu_array)
 
 puts "入力したのは: #{input} です。"
 
@@ -37,7 +47,6 @@ case
 when menu_number == true
 puts "#{input} はメニューにありません。入力しなおしてください"
 end
-
 
 
 #プログラムを終了を処理
@@ -226,3 +235,4 @@ end
 
 #例外の終了
 #end
+
