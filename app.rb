@@ -1,5 +1,6 @@
 require "readline"
 require "./normalized.rb"
+require "./menu.rb"
 
 #path、配列の共通で利用しているコードを別ファイルに切り出し
 load "./path.rb"
@@ -10,13 +11,9 @@ load "./path.rb"
 #ループ文開始
 loop do 
 
-
 #メニュー
-puts "■ ■ ■ ■ ■ StudyLogのメニュー ■ ■ ■ ■ ■"
-puts "・【メモを作る】は「 1 」を入力してください"
-puts "・【メモを削除する】は「 2 」を入力してください"
-puts "・【メモを見る】は「 3 」を入力してください"
-puts "・【※ プログラムを終了する】は「 4 」を入力してください。"
+menu_obj = MenuClass.new
+puts menu_obj.menu
 
 
 #string型で標準入力
