@@ -16,7 +16,7 @@ def normalized(input, pattern, input_length, menu_array)
   end
 end
 
-#関数処理、引数の型によって別て戻り値に真偽値を返す
+#read.rbの関数処理、引数の型によって別て戻り値に真偽値を返す
 def read_normalized(value_exists, normalized_input)
 if $value_exists == true
     return true
@@ -25,26 +25,44 @@ if $value_exists == true
   end
 end
 
-end
-
-=begin
-class ReadNormalizedClass
-#関数処理、引数の型によって別て戻り値に真偽値を返す
-def read_normalized(value_exists, normalized_input)
-if $value_exists == true
+#write.rbの関数処理、引数の型によって別て戻り値に真偽値を返す
+def write_normalized(value_exists, normalized_input)
+  case
+  when $value_exists == true || $normalized_input == true
     return true
-  elsif $normalized_input == false
+  when $value_exists == false || $normalized_input == true
+    return false
+  when $value_exists == false || $normalized_input == false
     return false
   end
 end
+
+#関数処理、引数の型によって別て戻り値に真偽値を返す
+def delete_normalized(value_exists, normalized_input)
+if $value_exists == true
+  return true
+elsif $ormalized_input == false
+  return false
 end
-=end
+end
+
+end
 
 class DirClass
+  #メモの保存ディレクトリを配列化、entriesメソッドでディレクトリに記号が入る為、配列を再作成
+  def filedir(dir_path)
+      #メモの保存ディレクトリを配列化
+    file_dir = Dir.entries($dir_path)
+  
+    #dropメソッドで不要な要素を取り除いて配列を生成
+    file_dir = file_dir.drop(2)
+    
+    return file_dir
+  end
+    
   #メモの保存ディレクトリを標準出力
   def dir_path(file_dir)
   $file_dir.each do |entry| 
   end
   end
 end
-
