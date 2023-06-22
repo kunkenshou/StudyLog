@@ -1,5 +1,16 @@
 require "./path.rb"
 
+class MenuClass
+  def menu
+    #メニュー
+    puts "■ ■ ■ ■ ■ StudyLogのメニュー ■ ■ ■ ■ ■"
+    puts "・【メモを作る】は「 1 」を入力してください"
+    puts "・【メモを削除する】は「 2 」を入力してください"
+    puts "・【メモを見る】は「 3 」を入力してください"
+    puts "・【※ プログラムを終了する】は「 4 」を入力してください。"
+  end
+end
+
 class NormalizedClass
 #関数値、期待値でない場合はBoolean型、期待値ならString型
 #標準入力で入力内容に記号が含まれていないか、文字列が1以上ないか確認する関数。戻り値は期待値以外はtrue、期待値はstring
