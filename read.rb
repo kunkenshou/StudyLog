@@ -5,6 +5,11 @@ puts "メモのタイトル一覧"
 
 
   dir_obj = DirClass.new
+  
+#関数処理、引数の型によって別て戻り値に真偽値を返す
+  normalized_obj = NormalizedClass.new
+
+#メモの保存ディレクトリを表示
   puts dir_obj.dir_path($file_dir)
   
   #メモのタイトルがディレクトリに存在するタイトルが入力されたら戻り値をtureを返してる繰り返しの処理を抜ける
@@ -17,23 +22,10 @@ $normalized_input = $file_name.match?($pattern)
 
 #file_dirの配列から標準入力されたタイトルを比較、変数に真偽値を格納
 $value_exists = $file_dir.include?($file_name)
-  
-  readnormalied_obj = ReadNormalizedClass.new
-  normalized_input = readnormalied_obj.read_normalized($value_exists, $normalized_input)
-  
-=begin
-#関数処理、引数の型によって別て戻り値に真偽値を返す
-def normalized(value_exists, normalized_input)
-  if $value_exists == true
-    return true
-  elsif $normalized_input == false
-    return false
-  end
-end
 
-#関数の戻り値が変数に代入
-normalized_input = normalized($value_exists, $normalized_input)
-=end
+
+  #関数の戻り値が変数に代入
+  normalized_input = normalized_obj.read_normalized($value_exists, $normalized_input)
 
   #真偽値で処理を分岐、tureなら標準入力で受け取ったタイトルのメモの内容を表示する、falseならメモを見るの処理に戻る
   if normalized_input == true
