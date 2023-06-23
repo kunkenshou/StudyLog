@@ -1,3 +1,5 @@
+#関数をまとめた処理
+
 require "./path.rb"
 
 class MenuClass
@@ -8,14 +10,15 @@ class MenuClass
     puts "・【メモを作る】は「 1 」を入力してください"
     puts "・【メモを削除する】は「 2 」を入力してください"
     puts "・【メモを見る】は「 3 」を入力してください"
-    puts "・【※ プログラムを終了する】は「 4 」を入力してください。"
+    puts "・【メモを書き換える】は「 4 」を入力してください"
+    puts "・【※ プログラムを終了する】は「 5 」を入力してください"
   end
 end
 
 class NormalizedClass
-  def dir_normalized(file_name, pattern)
+  def title_normalized(file_name, pattern)
     case
-    when $filename == "削除"
+    when $filename == "削除", $filename == "閲覧"
     #file_nameを正規表現でマッチング、変数に真偽値を格納
     #正規化、記号とマッチするとture
     $normalized_input = $file_name.match?($pattern)
@@ -28,19 +31,22 @@ class NormalizedClass
     elsif $normalized_input == false || $value_exists == false
       return false
     end
-    when $filename == "閲覧" 
-          #file_nameを正規表現でマッチング、変数に真偽値を格納
-    #正規化、記号とマッチするとture
-    $normalized_input = $file_name.match?($pattern)
+
+    when $filename == "メモを変更します。"
+    $normalized_input = $file_name.match?($pattern1)
 
     #file_dirの配列から標準入力されたタイトルを比較、変数に真偽値を格納
     $value_exists = $file_dir.include?($file_name)
 
-    if $normalized_input == false || $value_exists == true
+    if $normalized_input == true || $value_exists == false
       return true
-    elsif $normalized_input == false || $value_exists == false
+    elsif $normalized_input == false || $value_exists == true
       return false
+    else
+      return true
     end
+    
+    
     when $filename == "メモの作成"
           #file_nameを正規表現でマッチング、変数に真偽値を格納
     #正規化、記号とマッチするとture
@@ -60,9 +66,8 @@ class NormalizedClass
   end
   end
   
-#関数値、期待値でない場合はBoolean型、期待値ならString型
-#標準入力で入力内容に記号が含まれていないか、文字列が1以上ないか確認する関数。戻り値は期待値以外はtrue、期待値はstring
-def normalized(input, pattern, input_length, menu_array)
+#標準入力で入力内容に記号が含まれていないか、文字列が1文字以上ないか確認する関数。戻り値は期待値以外はtrue、期待値はstring
+def menu_normalized(input, pattern, input_length, menu_array)
   case
   when $input.match?($pattern) == true #menuに記号がないか比較して評価する
     return true
@@ -74,37 +79,6 @@ def normalized(input, pattern, input_length, menu_array)
     return menu_number = $input #menuの数が入力されたら、変数に代入する
   end
 end
-
-#read.rbの関数処理、引数の型によって別て戻り値に真偽値を返す
-def read_normalized(value_exists, normalized_input)
-if $value_exists == true
-    return true
-  elsif $normalized_input == false
-    return false
-  end
-end
-
-#write.rbの関数処理、引数の型によって別て戻り値に真偽値を返す
-def write_normalized(value_exists, normalized_input)
-  case
-  when $value_exists == true || $normalized_input == true
-    return true
-  when $value_exists == false || $normalized_input == true
-    return false
-  when $value_exists == false || $normalized_input == false
-    return false
-  end
-end
-
-#関数処理、引数の型によって別て戻り値に真偽値を返す
-def delete_normalized(value_exists, normalized_input)
-if $value_exists == true
-  return true
-elsif $ormalized_input == false
-  return false
-end
-end
-
 end
 
 class DirClass
@@ -118,8 +92,8 @@ class DirClass
     
     return file_dir
   end
-    
-  #メモの保存ディレクトリを標準出力
+  
+  #メモの保存ディレクトリ配列、Array型が格納
   def dir_path(file_dir)
   $file_dir.each do |entry| 
   end
