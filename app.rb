@@ -1,3 +1,5 @@
+#メニューを表示する処理のファイル
+
 require "readline"
 require "./normalized.rb"
 
@@ -17,7 +19,7 @@ puts menu_obj.menu
 
 
 #string型で標準入力
-$input = Readline.readline("指示を「 1 」か「 2 」か「3」か「 4 」で入力してください:").to_s
+$input = Readline.readline("指示を【1 〜 5 】整数で入力してください:").to_s
 
 #標準入力値の文字数をカウント
 $input_length = $input.length
@@ -26,7 +28,7 @@ $input_length = $input.length
 #NormalizedClassインスタンスを生成、normalized_objへ代入
 normalized_obj = NormalizedClass.new
 #normalized_objオブジェクトのnormalizedメソッドの返り値を変数へ代入
-menu_number = normalized_obj.normalized($input, $pattern, $input_length, $menu_array)
+menu_number = normalized_obj.menu_normalized($input, $pattern, $input_length, $menu_array)
 
 puts "入力したのは: #{$input} です。"
 
@@ -36,7 +38,7 @@ puts "#{$input} はメニューにありません。入力しなおしてくだ�
 end
 
 #プログラムを終了を処理
-  answer = Readline.readline("本当に終了しますか(y/n) :") if menu_number == "4" 
+  answer = Readline.readline("本当に終了しますか(y/n) :") if menu_number == "5" 
   break if answer == 'y'
 
 #メニューを分岐させる処理
@@ -56,6 +58,10 @@ when menu_number == "3"
 
   load "./read.rb"
 
+when menu_number == "4"
+  
+  load "./rewrite.rb"
+  
 when answer == "n"
   #プログラム終了をキャンセルする
   puts "メニューに戻ります"
