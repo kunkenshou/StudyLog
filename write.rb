@@ -1,3 +1,5 @@
+#メモを書く処理
+
 require "./normalized.rb"
 require "./path.rb"
 
@@ -7,7 +9,7 @@ dir_obj = DirClass.new
 normalized_obj = NormalizedClass.new
 
 $filename = "メモの作成"
-puts "#{$filename}"
+puts "メモを#{$filename}します"
 
 #入力で受け取った値を評価して結果がtureになるまで処理を繰り返す
 loop do
@@ -21,8 +23,7 @@ $file_dir = dir_obj.filedir($dir_path)
 
  
  #関数の戻り値を変数に代入
-normalized_input = normalized_obj.dir_normalized($value_exists, $normalized_input)
-
+normalized_input = normalized_obj.title_normalized($value_exists, $normalized_input)
 
   #真偽値で処理を分岐、tureなら標準入力で受け取ったタイトルのメモの内容を表示する、falseならメモを見るの処理に戻る
   if normalized_input == false
@@ -34,6 +35,7 @@ normalized_input = normalized_obj.dir_normalized($value_exists, $normalized_inpu
   end
 else
   puts "タイトル #{$file_name} は使用できません。他のタイトルを入力してください。"
+  
 end
 
   #file_status配列とfile_nameを比較して戻り値がtureならメモを見るの処理の繰り返しを終了
