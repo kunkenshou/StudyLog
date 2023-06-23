@@ -1,6 +1,7 @@
 require "./path.rb"
 
 class MenuClass
+#メニューを表示するメソッド
   def menu
     #メニュー
     puts "■ ■ ■ ■ ■ StudyLogのメニュー ■ ■ ■ ■ ■"
@@ -12,6 +13,53 @@ class MenuClass
 end
 
 class NormalizedClass
+  def dir_normalized(file_name, pattern)
+    case
+    when $filename == "削除"
+    #file_nameを正規表現でマッチング、変数に真偽値を格納
+    #正規化、記号とマッチするとture
+    $normalized_input = $file_name.match?($pattern)
+
+    #file_dirの配列から標準入力されたタイトルを比較、変数に真偽値を格納
+    $value_exists = $file_dir.include?($file_name)
+
+    if $normalized_input == false || $value_exists == true
+      return true
+    elsif $normalized_input == false || $value_exists == false
+      return false
+    end
+    when $filename == "閲覧" 
+          #file_nameを正規表現でマッチング、変数に真偽値を格納
+    #正規化、記号とマッチするとture
+    $normalized_input = $file_name.match?($pattern)
+
+    #file_dirの配列から標準入力されたタイトルを比較、変数に真偽値を格納
+    $value_exists = $file_dir.include?($file_name)
+
+    if $normalized_input == false || $value_exists == true
+      return true
+    elsif $normalized_input == false || $value_exists == false
+      return false
+    end
+    when $filename == "メモの作成"
+          #file_nameを正規表現でマッチング、変数に真偽値を格納
+    #正規化、記号とマッチするとture
+    $normalized_input = $file_name.match?($pattern)
+
+    $file_name = $file_name + ".txt"
+    
+    #file_dirの配列から標準入力されたタイトルを比較、変数に真偽値を格納
+    $value_exists = $file_dir.include?($file_name)
+
+    when $value_exists == true || $normalized_input == true
+      return true
+    when $value_exists == false || $normalized_input == false
+      return false
+    else
+      return true
+  end
+  end
+  
 #関数値、期待値でない場合はBoolean型、期待値ならString型
 #標準入力で入力内容に記号が含まれていないか、文字列が1以上ないか確認する関数。戻り値は期待値以外はtrue、期待値はstring
 def normalized(input, pattern, input_length, menu_array)
