@@ -8,20 +8,20 @@ dir_obj = DirClass.new
 #NormalizedClassクラスからインスタンスを作成、normalizedオブジェクトを作成
 normalized_obj = NormalizedClass.new
 
-$filename = "メモの作成"
+$filename = "作成"
 puts "メモを#{$filename}します"
 
 #入力で受け取った値を評価して結果がtureになるまで処理を繰り返す
 loop do
 
 #メモの保存ディレクトリ配列、Array型が格納
-dir_obj = DirClass.new 
+dir_obj = DirClass.new
 $file_dir = dir_obj.filedir($dir_path)
 
 #入力で値を受け取る
   $file_name = Readline.readline("メモのタイトルを入力してください。＞ :")
 
- 
+
  #関数の戻り値を変数に代入
 normalized_input = normalized_obj.title_normalized($value_exists, $normalized_input)
 
@@ -35,7 +35,7 @@ normalized_input = normalized_obj.title_normalized($value_exists, $normalized_in
   end
 else
   puts "タイトル #{$file_name} は使用できません。他のタイトルを入力してください。"
-  
+
 end
 
   #file_status配列とfile_nameを比較して戻り値がtureならメモを見るの処理の繰り返しを終了
