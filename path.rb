@@ -19,5 +19,6 @@ $dir_path = './log'
 $file_dir = Dir.entries($dir_path)
 
 #不要な要素を取り除いて、配列を再生成
+#test.txtを作成しテストしたところ[".", "test.txt", ".."]添字(2)なので$file_dirには".."が代入されてうまく動かないみたいです。normalized.rbも同様っぽいです
 $file_dir = $file_dir.drop(2)
 
