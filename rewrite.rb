@@ -62,51 +62,6 @@ memo_file = File.read(file_path)
 
 puts "#{txt_old}を#{txt_new}へ置き換えました。"
 
-=begin
-f2 = File.new(file_path, "r")
-r2 = f2.read
-puts r2.class
-puts r2
-f.close
-=end
-
-=begin
-20230625に作成した処理
-  open(file_path) do |file| 
-    data = file.read
-    puts data
-  end
-
-txt_old  = Readline.readline("変更したい所を入力＞ :").to_s
-txt_new = Readline.readline("変更する内容を入力＞ :").to_s
-
-
-  #ファイルを開く
-  # f = File.new(file_path) 
-  File.open(file_path) do |f|
-    contents = f.read
-    con = contents.gsub(txt_old, txt_new)
-    puts "#{txt_old}を#{txt_new}へ変更しました"
-
-    puts con.class
-
-    open(file_path, "w", 0755) do |f| f.write(con)
-    
-    test = f.read(file_path)
-    end
-end
-=end
-
-=begin
-  f = File.open(file_path, "r")
-  content = f.read(file_path)
-  puts content
-  f.close
-=end
-
-  #file_content = Readline.readline("メモを入力してください。Enterを押すと保存されます。＞ :")
-  #File.open(file_path, "w", 0755) do |file| file.write(file_content)
-  #end
   else
     puts "タイトル #{$file_name} は使用できません。他のタイトルを入力してください。"
   end
