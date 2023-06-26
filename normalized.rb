@@ -38,7 +38,7 @@ class NormalizedClass
     #file_dirの配列から標準入力されたタイトルを比較、変数に真偽値を格納
     $value_exists = $file_dir.include?($file_name)
 
-    if $normalized_input == true || $value_exists == false
+    if $normalized_input == false || $value_exists == false
       return true
     elsif $normalized_input == false || $value_exists == true
       return false
