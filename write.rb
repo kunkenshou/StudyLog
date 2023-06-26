@@ -9,7 +9,7 @@ dir_obj = DirClass.new
 normalized_obj = NormalizedClass.new
 
 $filename = "メモの作成"
-puts "メモを#{$filename}します"
+puts "#{$filename}をします"
 
 #入力で受け取った値を評価して結果がtureになるまで処理を繰り返す
 loop do
