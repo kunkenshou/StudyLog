@@ -33,7 +33,7 @@ class NormalizedClass
     end
 
     when $filename == "メモを変更します。"
-    $normalized_input = $file_name.match?($pattern1)
+    $normalized_input = $file_name.match?($pattern)
 
     #file_dirの配列から標準入力されたタイトルを比較、変数に真偽値を格納
     $value_exists = $file_dir.include?($file_name)
@@ -51,7 +51,7 @@ class NormalizedClass
           #file_nameを正規表現でマッチング、変数に真偽値を格納
     #正規化、記号とマッチするとture
     $normalized_input = $file_name.match?($pattern)
-
+    
     $file_name = $file_name + ".txt"
     
     #file_dirの配列から標準入力されたタイトルを比較、変数に真偽値を格納
@@ -67,11 +67,11 @@ class NormalizedClass
   end
   
 #標準入力で入力内容に記号が含まれていないか、文字列が1文字以上ないか確認する関数。戻り値は期待値以外はtrue、期待値はstring
-def menu_normalized(input, pattern, input_length, menu_array)
+def menu_normalized(input, pattern, menu_pattern, menu_array)
   case
   when $input.match?($pattern) == true #menuに記号がないか比較して評価する
     return true
-  when ($input_length == 1) == false #menuの入力値長さが1文字以上か比較して評価する
+  when $input.match?($menu_pattern) == false #menuの入力値長さが1文字以上か比較して評価する、lengthメソッドからmatch?メソッドで入力値チェックに変更
     return true
   when $menu_array.include?($input) == false #menuにない数値が入力された比較して評価する
     return true
