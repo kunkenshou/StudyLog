@@ -22,3 +22,4 @@ $file_dir = Dir.entries($dir_path)
 #test.txtを作成しテストしたところ[".", "test.txt", ".."]添字(2)なので$file_dirには".."が代入されてうまく動かないみたいです。normalized.rbも同様っぽいです
 $file_dir = $file_dir.drop(2)
 
+

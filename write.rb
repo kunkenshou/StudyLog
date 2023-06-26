@@ -8,8 +8,10 @@ dir_obj = DirClass.new
 #NormalizedClassクラスからインスタンスを作成、normalizedオブジェクトを作成
 normalized_obj = NormalizedClass.new
 
-$filename = "作成"
-puts "メモを#{$filename}します"
+
+#プロンプトの出力が"メモをメモの作成をします"となっていた件、"メモの作成をします"へ変更しました。
+$filename = "メモの作成"
+puts "#{$filename}をします"
 
 #入力で受け取った値を評価して結果がtureになるまで処理を繰り返す
 loop do
