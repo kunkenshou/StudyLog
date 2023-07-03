@@ -25,7 +25,7 @@ class NormalizedClass
 
     #file_dirの配列から標準入力されたタイトルを比較、変数に真偽値を格納
     $value_exists = $file_dir.include?($file_name)
-
+    #No such file or directory @ rb_sysopen - ./log/fsfsd (Errno::ENOENT)エラーが発生したため、ifとelseifの式を入れ替え
     if $normalized_input == false || $value_exists == false
       return false
     elsif $normalized_input == false || $value_exists == true
