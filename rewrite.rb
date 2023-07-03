@@ -9,7 +9,6 @@ dir_obj = DirClass.new
 normalized_obj = NormalizedClass.new
 #normalized_obj2 = NormalizedClass2.new
 
-
 $filename = "メモを変更します。"
 puts "#{$filename}"
 
@@ -17,56 +16,50 @@ puts "#{$filename}"
 loop do
 
   #メモの保存ディレクトリを出力
-dir_obj = DirClass.new 
-puts file_dir = dir_obj.filedir($dir_path)
+  dir_obj = DirClass.new
+  puts file_dir = dir_obj.filedir($dir_path)
 
-
-#入力で値を受け取る
+  #入力で値を受け取る
   $file_name = Readline.readline("変更したいメモのタイトルを入力してください。＞ :")
 
- 
- #関数の戻り値を変数に代入
-normalized_input = normalized_obj.title_normalized($value_exists, $normalized_input)
-#break if normalized_input == true
+  #関数の戻り値を変数に代入
+  normalized_input = normalized_obj.title_normalized($value_exists, $normalized_input)
+  #break if normalized_input == true
 
   #真偽値で処理を分岐、tureなら標準入力で受け取ったタイトルのメモの内容を表示する、falseならメモを見るの処理に戻る
   if normalized_input == false
-  
-  file_path = File.join($dir_path, $file_name)
+    file_path = File.join($dir_path, $file_name)
 
-#メモのファイルを開いてオブジェクトを生成、戻り値はFile型
-memo_file = File.new(file_path)
+    #メモのファイルを開いてオブジェクトを生成、戻り値はFile型
+    memo_file = File.new(file_path)
 
-#Fileの識別子からファイルの内容を読み込み、戻り値はString型
-memo_file = memo_file.read
+    #Fileの識別子からファイルの内容を読み込み、戻り値はString型
+    memo_file = memo_file.read
 
-puts "メモの内容#{memo_file}"
+    puts "メモの内容#{memo_file}"
 
-#置き換え前の内容を入力
-txt_old = Readline.readline("置き換える内容を入力してください。＞ ：")
+    #置き換え前の内容を入力
+    txt_old = Readline.readline("置き換える内容を入力してください。＞ ：")
 
-#置き換え後の内容を入力
-txt_new = Readline.readline("新しい内容を入力してください。＞ :")
+    #置き換え後の内容を入力
+    txt_new = Readline.readline("新しい内容を入力してください。＞ :")
 
+    #文字列のパターンにマッチした部分を置き換えて文字列を生成、戻り値はString型
+    memo_file = memo_file.gsub(txt_old, txt_new)
 
-#文字列のパターンにマッチした部分を置き換えて文字列を生成、戻り値はString型
-memo_file = memo_file.gsub(txt_old, txt_new)
+    #ファイルを書き込みモードで開いて、memo_file変数の文字列をファイルに書き込んでファイルを閉じる。
+    File.open(file_path, "w+") do |file|
+      file.write(memo_file)
+    end
 
-#ファイルを書き込みモードで開いて、memo_file変数の文字列をファイルに書き込んでファイルを閉じる。
-File.open(file_path, "w+") do |file| 
-file.write(memo_file)
-end
+    #Fileの識別子からファイルの内容を読み込み、戻り値はString型
+    memo_file = File.read(file_path)
 
-#Fileの識別子からファイルの内容を読み込み、戻り値はString型
-memo_file = File.read(file_path)
-
-puts "#{txt_old}を#{txt_new}へ置き換えました。"
-
+    puts "#{txt_old}を#{txt_new}へ置き換えました。"
   else
     puts "タイトル #{$file_name} は使用できません。他のタイトルを入力してください。"
   end
   #file_status配列とfile_nameを比較して戻り値がtureならメモを見るの処理の繰り返しを終了
   break if normalized_input == false
-#繰り返しの処理終了
+  #繰り返しの処理終了
 end
-
