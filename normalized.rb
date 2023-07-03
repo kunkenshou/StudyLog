@@ -26,12 +26,14 @@ class NormalizedClass
     #file_dirの配列から標準入力されたタイトルを比較、変数に真偽値を格納
     $value_exists = $file_dir.include?($file_name)
 
-    if $normalized_input == false || $value_exists == true
+    if $normalized_input == false || $value_exists == false
+      return false
+    elsif $normalized_input == false || $value_exists == true
       return true
-    elsif $normalized_input == false || $value_exists == false
+    else
       return false
     end
-
+    
     when $filename == "メモを変更します。"
     $normalized_input = $file_name.match?($pattern)
 
