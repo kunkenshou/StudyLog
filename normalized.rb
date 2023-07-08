@@ -1,5 +1,4 @@
 #関数をまとめた処理
-
 require "./path.rb"
 
 class MenuClass
@@ -85,8 +84,8 @@ class DirClass
     #メモの保存ディレクトリを配列化
     file_dir = Dir.entries($dir_path)
 
-    #dropメソッドで不要な要素を取り除いて配列を生成
-    file_dir = file_dir.drop(2)
+    #dropメソッドで不要な要素を取り除いて配列を生成→differenceメソッドに
+    file_dir = file_dir.difference([".", ".."])
 
     return file_dir
   end

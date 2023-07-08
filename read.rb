@@ -1,9 +1,11 @@
 #メモを閲覧する処理
-
 require "./normalized.rb"
+#requireでは配列が読み込まれない？
 require "./path.rb"
+$file_dir = Dir.entries($dir_path).difference([".", ".."])
 
 $filename = "閲覧"
+
 puts "#{$filename}するメモの一覧"
 
 dir_obj = DirClass.new
