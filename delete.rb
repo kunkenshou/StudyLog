@@ -1,8 +1,8 @@
 #メモを削除する処理のファイル
-
 require "./normalized.rb"
+#requireでは配列が読み込まれない？
 require "./path.rb"
-
+$file_dir = Dir.entries($dir_path).difference([".", ".."])
 $filename = "削除"
 puts "#{$filename}するメモの一覧"
 

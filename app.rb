@@ -45,11 +45,9 @@ loop do
   #メモを作成する処理
   when menu_number == "1"
     load "./write.rb"
-
     #メモを削除する処理
   when menu_number == "2"
     load "./delete.rb"
-
     #メモの内容を表示する処理
   when menu_number == "3"
     load "./read.rb"
