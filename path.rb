@@ -10,8 +10,10 @@ $menu_pattern = /\b[12345]\b/
 $menu_array = Array(["1", "2", "3", "4", "5"])
 
 #メモの保存先のディレクトリを指定
-$dir_path = './log'
+$dir_path = "./log"
 
 #メモの保存ディレクトリを配列化
+#不要な要素を取り除いて、配列を再生成
+#.dropメソッドからdifferenceメソッドに変更。dropメソッドの引数が$file_dirに代入されるのを防ぐため
+#oga114さんにてリファクタリング済み
 $file_dir = Dir.entries($dir_path).difference([".", ".."])
-
